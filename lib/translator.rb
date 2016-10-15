@@ -1,8 +1,5 @@
 require_relative 'dictionary'
 require 'pry'
-# require 'nightwriter'
-
-
 
 class Translator
   include Dictionary
@@ -11,12 +8,8 @@ class Translator
     @dictionary = Dictionary.dictionary
   end
 
-
-
-
-
   def prepare_the_message_for_translation(message)
-    @prepared = message.chars.flatten
+    prepared = message.chars.flatten
   end
 
   def translates_from_english_to_braille(message)
@@ -27,7 +20,6 @@ class Translator
   end
 
   def translate_from_braille_to_english(encrypted)
-    # binding.pry
     encrypted.map do |symbol|
       @dictionary.has_value?(symbol)
       if true
