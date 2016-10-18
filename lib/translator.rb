@@ -1,4 +1,5 @@
 require_relative 'dictionary'
+require_relative 'night_writer'
 require 'pry'
 
 class Translator
