@@ -4,35 +4,36 @@ require 'pry'
 
 class NightWriter
   # binding.pry
-  attr_reader :encrypted_top,
-              :encrypted_middle,
-              :encrypted_bottom,
-              :message,
+  attr_reader :message,
               :file_worker,
-              :translator
+              :translator,
+              :file_name,
+              :top_line,
+              :middle_line,
+              :bottom_line
 
   def initialize
     @file_worker = FileWorker.new
     @translator = Translator.new
-    binding.pry
+    # @file_name = ARGV[0]
+    # @encrypted_file = ARGV[1]
   end
 
   def open_file
-    file_worker.file_reader(filename)
-    binding.pry
+    @message = file_worker.file_reader(file_name)
   end
 
   def translates
-    translator.translates_top_line_from_english_to_braille(message)
-    translator.translates_middle_line_from_english_to_braille(message)
-    translator.translates_bottom_line_from_english_to_braille(message)
+    message = open_file
+    @top_line = translator.translates_top_line_from_english_to_braille(message)
+    @middle_line = translator.translates_middle_line_from_english_to_braille(message)
+    @bottom_line = translator.translates_bottom_line_from_english_to_braille(message)
   end
 
   def write_file
-    @file_worker.file_writer_braille(encrypted_top, encrypted_middle, encrypted_bottom)
-
+    translates
+    @file_worker.file_writer_braille(top_line, middle_line, bottom_line)
   end
-  n = NightWriter.new
-  binding.pry
-
 end
+n = NightWriter.new
+n.write_file

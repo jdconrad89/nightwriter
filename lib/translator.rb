@@ -1,5 +1,4 @@
-require_relative 'dictionary'
-require_relative 'night_writer'
+require './lib/dictionary'
 require 'pry'
 
 class Translator
@@ -26,7 +25,7 @@ class Translator
   end
 
   def prepare_the_message_for_translation_to_braille(message)
-    @prepared = message.chars.flatten
+    @prepared = message.chars
   end
 
   def translates_top_line_from_english_to_braille(message)
@@ -55,7 +54,6 @@ class Translator
   end
 
   def translates_from_braille_to_english(top_line, middle_line, bottom_line)
-    # binding.pry
     prepare_message_for_translation_to_english(top_line, middle_line, bottom_line)
     decrypted = []
     @encrypted.map do |symbol|
