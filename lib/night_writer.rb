@@ -6,7 +6,8 @@ class NightWriter
   # binding.pry
   attr_reader :message,
               :file_worker,
-              :translator,
+              :translator_e,
+              :translator_b,
               :file_name,
               :top_line,
               :middle_line,
@@ -14,7 +15,8 @@ class NightWriter
 
   def initialize
     @file_worker = FileWorker.new
-    @translator = Translator.new
+    @translator_e = TranslatorEnglish.new
+    @translator_b = TranslatorBraille.new
     # @file_name = ARGV[0]
     # @encrypted_file = ARGV[1]
   end
