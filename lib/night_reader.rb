@@ -7,7 +7,7 @@ class NightReader
   require 'pry'
 
   class NightWriter
-    # binding.pry
+    binding.pry
     attr_reader :message,
                 :file_worker,
                 :translator,

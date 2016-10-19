@@ -49,11 +49,25 @@ class Translator
     end.flatten
   end
 
-  def prepare_message_for_translation_to_english(top_line, middle_line, bottom_line)
+  def prepare_message_for_translation_to_english(message)
+    top = ""
+    middle = ""
+    bottom = ""
+
+    cleaned = message.gsub("\n", "")
+    count = cleaned.length / 3 - 1
+    top << cleaned.slice!(0..ccount)
+    middle << cleaned.slice!(0..count)
+    bottom << cleaned.slice!(0..count)
+
+    top_line = top.scan(/../)
+    middle_line = middle.scan(/../)
+    bottom_line = bottom.scan(/../)
+
     @encrypted = top_line.zip(middle_line, bottom_line)
   end
 
-  def translates_from_braille_to_english(top_line, middle_line, bottom_line)
+  def translates_from_braille_to_english(message)
     prepare_message_for_translation_to_english(top_line, middle_line, bottom_line)
     decrypted = []
     @encrypted.map do |symbol|

@@ -20,11 +20,11 @@ class NightWriter
   end
 
   def open_file
-    @message = file_worker.file_reader(file_name)
+    file_worker.file_reader(file_name)
   end
 
   def translates
-    message = open_file
+    message = open_file.gsub("\n",'')
     @top_line = translator.translates_top_line_from_english_to_braille(message)
     @middle_line = translator.translates_middle_line_from_english_to_braille(message)
     @bottom_line = translator.translates_bottom_line_from_english_to_braille(message)

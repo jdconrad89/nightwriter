@@ -25,7 +25,7 @@ class FileWorker
     written_file.puts(bottom.join + "\n")
 
 
-    puts "You have created #{ARGV[1]} encrypted from #{ARGV[0]} with #{top_line.length} characters! "
+    puts "You have created #{ARGV[1]} with #{top_line.length} characters! "
   end
 
   def file_writer_english(text)
