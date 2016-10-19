@@ -1,39 +1,25 @@
-require './lib/translator'
+require './lib/translator_english'
 require './lib/file_worker'
 require 'pry'
-
 class NightWriter
+  attr_reader :translator
   # binding.pry
-  attr_reader :message,
-              :file_worker,
-              :translator,
-              :file_name,
-              :top_line,
-              :middle_line,
-              :bottom_line
-
   def initialize
-    @file_worker = FileWorker.new
     @translator = TranslatorEnglish.new
-    # @file_name = ARGV[0]
-    # @encrypted_file = ARGV[1]
   end
-
   def open_file
-    file_worker.file_reader(file_name)
+    message = FileWorker.file_reader(ARGV[0])
+    translate(message)
   end
-
-  def translates
+  def translates(message)
     message = open_file.gsub("\n",'')
-    @top_line = translator.translates_top_line_from_english_to_braille(message)
-    @middle_line = translator.translates_middle_line_from_english_to_braille(message)
-    @bottom_line = translator.translates_bottom_line_from_english_to_braille(message)
+    top_line = translator.translates_top_line_from_english_to_braille(message)
+    middle_line = translator.translates_middle_line_from_english_to_braille(message)
+    bottom_line = translator.translates_bottom_line_from_english_to_braille(message)
   end
-
   def write_file
-    translates
-    @file_worker.file_writer_braille(top_line, middle_line, bottom_line)
+    FileWorker.file_writer_braille(top_line, middle_line, bottom_line)
   end
 end
 n = NightWriter.new
-n.write_file
+n.open_file
