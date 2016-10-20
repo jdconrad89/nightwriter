@@ -4,7 +4,7 @@ require 'pry'
 class TranslatorBraille
 
   def prepare_message_for_translation_to_english(message)
-    # binding.pry
+# binding.pry
     top = ""
     middle = ""
     bottom = ""
@@ -26,6 +26,7 @@ class TranslatorBraille
 
     translates_from_braille_to_english(encrypted)
   end
+
   def translates_from_braille_to_english(encrypted)
     alphabet = Dictionary.new
     decrypted = []
@@ -34,7 +35,7 @@ class TranslatorBraille
       if true
         decrypted  << alphabet.decryption_dictionary.key(symbol)
       end
-    end
+    end.uniq
     capitalizes_letters(decrypted)
   end
 
