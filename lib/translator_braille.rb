@@ -4,6 +4,7 @@ require 'pry'
 class TranslatorBraille
 
   def prepare_message_for_translation_to_english(message)
+    # binding.pry
     top = ""
     middle = ""
     bottom = ""
@@ -23,27 +24,28 @@ class TranslatorBraille
     bottom_line = bottom.scan(/../)
     encrypted = top_line.zip(middle_line, bottom_line)
 
-    translates_from_braille_to_english(message, encrypted)
+    translates_from_braille_to_english(encrypted)
   end
-  def translates_from_braille_to_english(message, encrypted)
+  def translates_from_braille_to_english(encrypted)
     alphabet = Dictionary.new
     decrypted = []
     encrypted.map do |symbol|
-      alphabet.alphabet_4.has_value?(symbol)
+      alphabet.decryption_dictionary.has_value?(symbol)
       if true
-        decrypted  << alphabet_4.key(symbol)
+        decrypted  << alphabet.decryption_dictionary.key(symbol)
       end
     end
     capitalizes_letters(decrypted)
   end
+
   def capitalizes_letters(decrypted)
     message = []
     decrypted.each_with_index do |letter, index|
-      shift_letters(message, letter, index)
+      shift_letters(decrypted, message, letter, index)
     end
     message.join
   end
-  def shift_letters(message, letter, index)
+  def shift_letters(decrypted, message, letter, index)
     if letter == "shift"
       message << decrypted[index+1].upcase
       decrypted.delete_at(index)

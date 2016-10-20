@@ -1,29 +1,29 @@
 class FileWorker
   def file_reader(filename)
-    filename = ARGV[0]
-    File.read(filename).chomp
+    File.read(ARGV[0]).chomp
   end
   def file_writer_braille(top_line,middle_line, bottom_line)
-    filename = ARGV[1]
     top = []
     middle = []
-    bottom = []
-    written_file = File.open(filename, 'a')
+    bottom  = []
+    # while top_line.length != 0
     top_line.length.times do |symbol|
       top << top_line[symbol]
       middle << middle_line[symbol]
       bottom << bottom_line[symbol]
     end
+    write_braille(bottom, middle, top)
+  end
+  def write_braille(bottom, middle, top)
+    written_file = File.open(ARGV[1], 'a')
     written_file.puts(top.join + "\n")
     written_file.puts(middle.join + "\n")
     written_file.puts(bottom.join + "\n")
-    puts "You have created #{ARGV[1]} with #{top_line.length} characters! "
+    puts "You have created #{ARGV[1]} with #{top.length} characters! "
   end
   def file_writer_english(text)
-    filename = ARGV[1]
-    written_file = File.open(filename, 'w')
+    written_file = File.open(ARGV[1], 'w')
     written_file.write(text)
-    written_file.close
-    puts "You have created #{ARGV[1]} with #{text.length} characters! "
+    # puts "You have created #{ARGV[1]} with #{text.length} characters! "
   end
 end

@@ -1,32 +1,30 @@
-require './lib/translator'
+require './lib/translator_braille'
 require './lib/file_worker'
 require 'pry'
 class NightReader
-  attr_reader :message,
-              :file_worker,
-              :translator,
-              :file_name,
-              :top_line,
-              :middle_line,
-              :bottom_line,
-              :final_message
+  # binding.pry
+  attr_reader :file_worker
+
   def initialize
     @file_worker = FileWorker.new
-    @translator = TranslatorBraille.new
-    @file_name = ARGV[0]
-    @encrypted_file = ARGV[1]
+
   end
+
   def open_file
-    file_worker.file_reader(file_name)
+    message = file_worker.file_reader(ARGV[0])
+    translates(message)
   end
-  def translates
-    message = open_file
-    @final_message = translator.capitalizes_letters(message)
+
+  def translates(message)
+    translator = TranslatorBraille.new
+    final_message = translator.prepare_message_for_translation_to_english(message)
+    write_file(final_message)
   end
-  def write_file
-    translates
-    @file_worker.file_writer_english(final_message)
+
+  def write_file(final_message)
+    file_worker.file_writer_english(final_message)
   end
+  
 end
 n = NightReader.new
-n.write_file
+n.open_file

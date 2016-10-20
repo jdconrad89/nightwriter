@@ -8,8 +8,9 @@ class TranslatorBrailleTest < Minitest::Test
 
   def test_it_prepares_a_single_word
     t = TranslatorBraille.new
-    
-        assert_equal result_2, result_1
+      d`1   `   1``   
+
+        assert_equal , result_1
   end
 
   def test_it_translates_braille_into_english
