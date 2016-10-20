@@ -6,7 +6,6 @@ class FileWorker
     top = []
     middle = []
     bottom  = []
-    # while top_line.length != 0
     top_line.length.times do |symbol|
       top << top_line[symbol]
       middle << middle_line[symbol]
@@ -24,6 +23,6 @@ class FileWorker
   def file_writer_english(text)
     written_file = File.open(ARGV[1], 'w')
     written_file.write(text)
-    # puts "You have created #{ARGV[1]} with #{text.length} characters! "
+    puts "You have created #{ARGV[1]} with #{text.length} characters! "
   end
 end

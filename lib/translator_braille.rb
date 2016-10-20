@@ -35,7 +35,7 @@ class TranslatorBraille
       if true
         decrypted  << alphabet.decryption_dictionary.key(symbol)
       end
-    end.uniq
+    end
     capitalizes_letters(decrypted)
   end
 
